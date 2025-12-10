@@ -1,0 +1,10 @@
+import RegisterForm from "@/components/RegisterForm";
+import Image from "next/image";
+
+export default function Home() {
+  return (
+   <main>
+    <RegisterForm />
+   </main>
+  );
+}
