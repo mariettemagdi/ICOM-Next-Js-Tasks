@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# User Search Application 🔍
 
-## Getting Started
+A modern Next.js app that fetches users from an API and provides real-time search functionality.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-15.4.8-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38bdf8)
+
+## ✨ Features
+
+- 🔄 Real-time search filtering by name
+- 📱 Responsive design (mobile/tablet/desktop)
+- ⚡ Loading spinner while fetching data
+- 🎨 Modern UI with gradient backgrounds
+- 🔍 Case-insensitive search
+
+## 🛠 Tech Stack
+
+- Next.js 15.4.8
+- TypeScript
+- Tailwind CSS
+- Lucide React (icons)
+- JSONPlaceholder API
+
+## 🚀 Quick Start
+
+### Installation
 
 ```bash
+# Create project
+npx create-next-app@15.4.8 user-search-app
+
+# Navigate to directory
+cd user-search-app
+
+# Install icons
+npm install lucide-react
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Setup Options
+When creating the project, select:
+- ✅ TypeScript, ESLint, Tailwind CSS, src/ directory, App Router
+- ❌ Customize import alias
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+src/
+└── app/
+    ├── page.tsx       # Main component (replace this file)
+    ├── layout.tsx
+    └── globals.css
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🌐 API Endpoint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Fetches from: `https://jsonplaceholder.typicode.com/users`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Returns 10 users with: `id`, `name`, `email`, `company.name`
 
-## Deploy on Vercel
+## 💡 Usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Type in search box to filter users by name
+2. Results update instantly
+3. Clear search to show all users
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Example searches:** `"Leanne"`, `"graham"`, `"xyz"` (shows no results)
+
+## 🐛 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Module not found 'lucide-react' | Run `npm install lucide-react` |
+| Blank screen | Add `'use client';` at top of page.tsx |
+| TypeScript errors | Ensure `interface User` is defined |
+| Search not working | Check browser console (F12) for errors |
+
+## ✅ Requirements Checklist
+
+- ✅ Next.js v15.4.8 with TypeScript
+- ✅ src/ directory structure
+- ✅ Fetch from JSONPlaceholder API
+- ✅ Search filter by name
+- ✅ Display cards with Name, Email, Company
+- ✅ Show loading state
+
+---
+
