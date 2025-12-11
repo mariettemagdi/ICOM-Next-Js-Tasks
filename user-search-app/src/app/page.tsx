@@ -1,9 +1,22 @@
-import Image from "next/image";
+"use client";
 import { Search } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
+  const [loading,setLoading]=useState(true);
+
+  //loading
+  if(loading){
+    return(
+      <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600"></div>
+          <p className="mt-4 text-gray-700 text-lg font-medium">Loading....</p>
+        </div>
+      </div>
+    );
+  }
   return (
-    // add loading later 
    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
