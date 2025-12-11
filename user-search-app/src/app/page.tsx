@@ -1,9 +1,39 @@
 "use client";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import React,{ useState, useEffect } from "react";
+
+interface User {
+  id:number;
+  name:string;
+  email:string;
+  comapany:{
+    name:string;
+  };
+}
 
 export default function Home() {
   const [loading,setLoading]=useState(true);
+  const [users,setUsers]=useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+
+  //fetch users form api 
+  useEffect(()=>{
+    const fetchUsers=async ()=>{
+      try{
+        const response=await fetch('https://jsonplaceholder.typicode.com/users');
+        const data= await response.json();
+
+        setUsers(data);
+        setFilteredUsers(data);
+        
+      }catch(error){
+        console.error('Error fetching users:', error);
+      }finally {
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  },[]);
 
   //loading
   if(loading){
@@ -35,32 +65,32 @@ export default function Home() {
       </div>
       {/*  card to display name , email and comapany */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-100">
+        {filteredUsers.map(user =>(<div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-100">
 
             <div className="flex items-center justify-center w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-600 rounded-full mb-4 mx-auto">
-                <span className="text-2xl font-bold text-white">C</span>
+                <span className="text-2xl font-bold text-white">{user.name.charAt(0).toUpperCase()}</span>
             </div>
 
             <div className="text-center">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-2">user name</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2">{user.name}</h2>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-center text-gray-600">
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <span className="text-sm">user.email</span>
+                <span className="text-sm">{user.email}</span>
                 </div>
 
               <div className="flex items-center justify-center text-gray-600">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
-                    <span className="text-sm font-medium">user.company.name</span>
+                    <span className="text-sm font-medium">{user.company.name}</span>
               </div>
               </div>
             </div>
-        </div>
+        </div>))}
       </div>
 
       </div>
