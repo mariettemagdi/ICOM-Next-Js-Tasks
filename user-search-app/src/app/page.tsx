@@ -6,7 +6,7 @@ interface User {
   id:number;
   name:string;
   email:string;
-  comapany:{
+  company:{
     name:string;
   };
 }
@@ -15,6 +15,7 @@ export default function Home() {
   const [loading,setLoading]=useState(true);
   const [users,setUsers]=useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [searchString,setSearchString]=useState('');
 
   //fetch users form api 
   useEffect(()=>{
@@ -34,6 +35,17 @@ export default function Home() {
     };
     fetchUsers();
   },[]);
+
+  //filter users when searchstring is available
+  useEffect(()=>{
+    const filtered= users.filter(user=>user.name.toLowerCase().includes(searchString.toLowerCase()));
+    setFilteredUsers(filtered);
+  },[searchString]);
+
+  //search handler
+  const handleSearchChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    setSearchString(e.target.value);
+  }
 
   //loading
   if(loading){
@@ -59,13 +71,15 @@ export default function Home() {
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
             <Search className="h-5 w-5 text-gray-400"/>
           </div>
-          <input type="text" placeholder="Search by Name..." className="block w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400 transition-all"/>
+          <input type="text" placeholder="Search by Name..." className="block w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400 transition-all" value={searchString} onChange={handleSearchChange}/>
         </div>
-        <p className="mt-2 text-sm text-gray-600 text-center">Users found</p>
+        <p className="mt-2 text-sm text-gray-600 text-center">
+          {filteredUsers.length} {filteredUsers.length===1?'user':'users'} found
+        </p>
       </div>
       {/*  card to display name , email and comapany */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredUsers.map(user =>(<div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-100">
+        {filteredUsers.map(user =>(<div key={user.id} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-100">
 
             <div className="flex items-center justify-center w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-600 rounded-full mb-4 mx-auto">
                 <span className="text-2xl font-bold text-white">{user.name.charAt(0).toUpperCase()}</span>
