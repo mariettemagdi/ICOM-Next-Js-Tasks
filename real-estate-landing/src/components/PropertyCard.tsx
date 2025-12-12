@@ -1,156 +1,157 @@
-"use client";
+'use client'; 
 
-import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
-import { Phone, MessageCircle, Heart, Bed, Bath, Maximize } from "lucide-react";
-import { Property } from "@/types";
+import { Heart, Phone, MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Button } from './ui/button'; 
 
 interface PropertyCardProps {
-  property: Property;
-  index: number;
+  imageSrc: string;
 }
 
-export default function PropertyCard() {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const property: Property = 
-    {
-      id: 1,
-      image: "/property-1.jpg", // You'll replace with actual images
-      price: "5,000,000",
-      title: "Lorem ipsum dolor sit",
-      description: "A chic and fully-furnished 2-bedroom apartment with panoramic city views.",
-      location: "Alexandria, Egypt",
-      sqft: 400,
-      rooms: 6,
-      baths: 3,
-    }
+const PRIMARY_RED = '#B83A3A'; 
+const TEXT_GRAY = '#707070';  
+
+const PropertyCard: React.FC<PropertyCardProps> = ({ imageSrc }) => {
+  const CARD_RADIUS = 'rounded-[16px]';
+  
+  const hoverAnimation = {
+    y: -8, 
+    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)',
+    transition: { type: 'spring' as const, stiffness: 300, damping: 20 }
+  };
+
   return (
+    // Outer container: Relative, fixed height, overflow visible to allow white box margins
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.5, delay: 1 * 0.1 }}
+      className={`relative w-full h-125`}
+      whileHover={hoverAnimation}
+      initial={{ y: 0 }}
     >
-      <Card className="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 group">
-        {/* Property Image */}
-        <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden">
+      {/* 1. Property Image (Takes full width and height, z-index: 0) */}
+      <div 
+        className={`absolute inset-0 ${CARD_RADIUS} overflow-hidden shadow-lg`}
+        style={{ 
+          backgroundImage: `url(${imageSrc})`, 
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 0
+        }}
+      />
+        
+      {/* 2. Icon Buttons (Z-index: 3) - Top of card with margins */}
+      <div className="absolute top-0 left-0 right-0 z-30 flex justify-between p-5">
+        {/* Left Icons: Call & WhatsApp (flex: row, together) */}
+        <div className="flex gap-3">
+          {/* Call Icon */}
           <div 
-            className="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
-            style={{ backgroundImage: `url(${property.image})` }}
-          />
+            className="flex h-10 w-10 items-center justify-center rounded-full shadow-md cursor-pointer hover:scale-110 transition-transform" 
+            style={{ backgroundColor: PRIMARY_RED }}
+          >
+            <Phone className="h-5 w-5 text-white" />
+          </div>
+          {/* WhatsApp Icon */}
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 shadow-md cursor-pointer hover:scale-110 transition-transform">
+            <MessageCircle className="h-5 w-5 text-white" />
+          </div>
+        </div>
+        
+        {/* Right Icon: Heart (at most right) */}
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md cursor-pointer hover:scale-110 transition-transform">
+          <Heart className="h-5 w-5" style={{ color: PRIMARY_RED }} />
+        </div>
+      </div>
+
+      {/* 3. White Information Box (Z-index: 2) - Overlapping bottom half with margins */}
+      <div 
+        className="absolute bottom-0 left-5 right-5 z-20 bg-white rounded-2xl shadow-2xl"
+        style={{ 
+          height: '50%', // Takes half of the card
+          padding: '24px',
+          marginBottom: '16px' // Margin from bottom so image shows below
+        }}
+      >
+        
+        {/* LINE 1: Price and Villa Tag (flex row, space-between) */}
+        <div className="flex items-center justify-between mb-3">
+          {/* Price (at most left) */}
+          <p className="text-[26px] font-bold leading-none" style={{ color: PRIMARY_RED }}>
+            5,000,000 L.E
+          </p>
           
-          {/* Contact Icons - Top Left */}
-          <div className="absolute top-4 left-4 flex gap-2">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-estate-red hover:text-white transition-colors"
-              aria-label="Call"
+          {/* Logo and Tag (at most right, together) */}
+          <div className="flex items-center gap-2">
+            {/* Placeholder Logo Icon */}
+            <div className="h-5 w-5 flex items-center justify-center">
+              <div className="h-2 w-2 rounded-full" style={{backgroundColor: PRIMARY_RED}}></div>
+            </div>
+            {/* Villa Tag */}
+            <div 
+              className="rounded px-3 py-1 text-xs font-medium"
+              style={{ backgroundColor: PRIMARY_RED, color: 'white' }}
             >
-              <Phone size={18} />
-            </motion.button>
+              Villa
+            </div>
+          </div>
+        </div>
+        
+        {/* LINE 2: Title */}
+        <h3 className="text-[19px] font-semibold text-black leading-tight">
+          Lorem ipsum dolor sit
+        </h3>
+        
+        {/* LINE 3: Description */}
+        <p className="mt-2 text-[14px] leading-relaxed" style={{ color: TEXT_GRAY }}>
+          A chic and fully-furnished 2-bedroom apartment with panoramic city views.
+        </p>
+
+        {/* Horizontal Divider Line (Grey) */}
+        <div className="my-4 border-t border-gray-300" />
+
+        {/* LINE 4: Location and Stats (flex row, space-between) */}
+        <div className="flex items-center justify-between "style={{ margin: '10px 0' }}>
+          {/* Location (at most left) */}
+          <p className="text-[14px] font-medium text-black">
+            Alexandria, Egypt
+          </p>
+          
+          {/* Stats (at most right, flex row with minimal gap and vertical dividers) */}
+          <div className="flex items-center gap-3">
+            {/* Stat Item 1 */}
+            <div className="flex items-center gap-1">
+              <p className="text-[15px] font-bold text-black">400</p>
+              <p className="text-[12px]" style={{ color: TEXT_GRAY }}>Sq ft</p>
+            </div>
             
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-green-500 hover:text-white transition-colors"
-              aria-label="WhatsApp"
-            >
-              <MessageCircle size={18} />
-            </motion.button>
-          </div>
-
-          {/* Favorite Button - Top Right */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsFavorite(!isFavorite)}
-            className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center transition-colors"
-            aria-label="Favorite"
-          >
-            <Heart 
-              size={18} 
-              className={isFavorite ? "fill-estate-red text-estate-red" : "text-gray-600"}
-            />
-          </motion.button>
-
-          {/* Villa Badge - Bottom Right */}
-          <div className="absolute bottom-4 right-4">
-            <Badge className="bg-white text-estate-dark border-0 shadow-md px-4 py-1.5">
-              <span className="flex items-center gap-1.5">
-                <div className="w-2 h-2 bg-[#A42C2C] rounded-full" />
-                Villa
-              </span>
-            </Badge>
+            {/* Vertical Divider */}
+            <div className="h-5 w-[1px] bg-gray-300" />
+            
+            {/* Stat Item 2 */}
+            <div className="flex items-center gap-1">
+              <p className="text-[15px] font-bold text-black">6</p>
+              <p className="text-[12px]" style={{ color: TEXT_GRAY }}>Rooms</p>
+            </div>
+            
+            {/* Vertical Divider */}
+            <div className="h-5 w-[1px] bg-gray-300" />
+            
+            {/* Stat Item 3 */}
+            <div className="flex items-center gap-1">
+              <p className="text-[15px] font-bold text-black">3</p>
+              <p className="text-[12px]" style={{ color: TEXT_GRAY }}>Bath</p>
+            </div>
           </div>
         </div>
 
-        {/* Property Details */}
-        <div className="p-6 bg-white">
-          {/* Price */}
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-3xl font-bold text-estate-red">
-              {property.price}
-            </span>
-            <span className="text-gray-500 text-sm">LE</span>
-          </div>
-
-          {/* Title */}
-          <h3 className="text-xl font-bold text-estate-dark mb-2">
-            {property.title}
-          </h3>
-
-          {/* Description */}
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-            {property.description}
-          </p>
-
-          {/* Location */}
-          <p className="text-gray-500 text-sm mb-4">
-            {property.location}
-          </p>
-
-          {/* Property Stats */}
-          <div className="flex items-center justify-between mb-6 pb-6 border-b">
-            {/* Square Feet */}
-            <div className="flex flex-col items-center">
-              <div className="flex items-center gap-1 mb-1">
-                <Maximize size={16} className="text-gray-400" />
-                <span className="text-sm font-medium text-gray-500">Sq ft</span>
-              </div>
-              <span className="text-lg font-bold text-estate-dark">{property.sqft}</span>
-            </div>
-
-            {/* Rooms */}
-            <div className="flex flex-col items-center">
-              <div className="flex items-center gap-1 mb-1">
-                <Bed size={16} className="text-gray-400" />
-                <span className="text-sm font-medium text-gray-500">Rooms</span>
-              </div>
-              <span className="text-lg font-bold text-estate-dark">{property.rooms}</span>
-            </div>
-
-            {/* Bathrooms */}
-            <div className="flex flex-col items-center">
-              <div className="flex items-center gap-1 mb-1">
-                <Bath size={16} className="text-gray-400" />
-                <span className="text-sm font-medium text-gray-500">Bath</span>
-              </div>
-              <span className="text-lg font-bold text-estate-dark">{property.baths}</span>
-            </div>
-          </div>
-
-          {/* CTA Button */}
-          <Button 
-            className="w-full bg-estate-red hover:bg-estate-red/90 text-white py-6 rounded-xl font-medium text-base transition-all"
-          >
-            View Property Details
-          </Button>
-        </div>
-      </Card>
+        {/* LINE 5: CTA Button */}
+        <Button
+          className="w-full py-[14px] text-[15px] font-semibold text-white rounded-lg hover:opacity-90 transition-opacity"
+          style={{ backgroundColor: PRIMARY_RED }} 
+        >
+          View Property Details
+        </Button>
+      </div>
     </motion.div>
   );
-}
+};
+
+export default PropertyCard;

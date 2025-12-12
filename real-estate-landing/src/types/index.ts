@@ -12,4 +12,4 @@ export interface Property{
 }
 
 
-export type ContactType='phone' | 'whatsapp' | 'favorite';
+export type ContactType= 'phone' | 'whatsapp' | 'favorite';
