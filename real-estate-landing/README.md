@@ -148,30 +148,6 @@ Strict mode enabled with proper type checking for all components.
 - Optimized images using Next.js Image component
 - Semantic HTML for accessibility
 
-## 🚢 Deployment
-
-The project is ready to be deployed on Vercel:
-```bash
-npm run build
-```
-
-Deploy with one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-## 🧪 Testing
-```bash
-npm run lint
-npm run type-check
-```
-
-## 📄 License
-
-MIT
-
-## 👤 Author
-
-Your Name - [GitHub](https://github.com/yourusername)
 
 ---
 
