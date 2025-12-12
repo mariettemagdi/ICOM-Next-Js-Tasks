@@ -1,36 +1,178 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Real Estate Landing Page
 
-## Getting Started
+A modern, responsive real estate landing page built with Next.js 15, TypeScript, and Tailwind CSS, featuring pixel-perfect implementation from Figma design.
 
-First, run the development server:
+## 🎨 Design
 
+Figma Design: [View Design](https://www.figma.com/design/ithZWareoGkkCls4cBm58v/Untitled?node-id=0-1&p=f)
+
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 15.4.8
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **UI Components:** Shadcn/ui
+- **Animations:** Framer Motion
+- **Architecture:** src directory structure
+
+## ✨ Features
+
+- ✅ Pixel-perfect implementation from Figma design
+- ✅ Fully responsive (mobile-first approach)
+- ✅ Modern UI components from Shadcn
+- ✅ Smooth animations and transitions
+- ✅ TypeScript for type safety
+- ✅ Optimized performance
+- ✅ SEO-friendly structure
+
+## 📋 Requirements Met
+
+- [x] Next.js v15.4.8
+- [x] TypeScript
+- [x] src directory structure
+- [x] Pixel-perfect layout matching Figma
+- [x] Tailwind CSS for styling
+- [x] Mobile-first responsive design
+- [x] Shadcn UI components
+- [x] Framer Motion animations
+
+## 🛠️ Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd real-estate-landing
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 Dependencies
+```json
+{
+  "dependencies": {
+    "next": "15.4.8",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.x",
+    "tailwindcss": "^3.x",
+    "framer-motion": "^11.x",
+    "@radix-ui/react-*": "latest",
+    "class-variance-authority": "^0.7.x",
+    "clsx": "^2.x",
+    "tailwind-merge": "^2.x"
+  }
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
+```
+real-estate-landing/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── globals.css
+│   ├── components/
+│   │   ├── ui/          # Shadcn components
+│   │   ├── Hero.tsx
+│   │   ├── PropertyCard.tsx
+│   │   └── ...
+│   ├── lib/
+│   │   └── utils.ts
+│   └── types/
+│       └── index.ts
+├── public/
+├── tailwind.config.ts
+├── tsconfig.json
+└── package.json
+```
 
-## Learn More
+## 🎭 Animations
 
-To learn more about Next.js, take a look at the following resources:
+The project includes smooth animations using Framer Motion:
+- Hover effects on property cards
+- Fade-in animations on scroll
+- Smooth page transitions
+- Interactive button states
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📱 Responsive Breakpoints
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Mobile:** < 640px
+- **Tablet:** 640px - 1024px
+- **Desktop:** > 1024px
 
-## Deploy on Vercel
+## 🎨 Shadcn Components Used
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Button
+- Card
+- Input
+- Badge
+- Dialog
+- Select
+- Carousel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔧 Configuration
+
+### Tailwind CSS
+Custom configuration in `tailwind.config.ts` includes:
+- Custom colors matching Figma design
+- Extended spacing and sizing
+- Custom animations
+
+### TypeScript
+Strict mode enabled with proper type checking for all components.
+
+## 📝 Development Notes
+
+- All components are fully typed with TypeScript
+- Mobile-first approach for all responsive designs
+- Reusable components following DRY principles
+- Optimized images using Next.js Image component
+- Semantic HTML for accessibility
+
+## 🚢 Deployment
+
+The project is ready to be deployed on Vercel:
+```bash
+npm run build
+```
+
+Deploy with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+## 🧪 Testing
+```bash
+npm run lint
+npm run type-check
+```
+
+## 📄 License
+
+MIT
+
+## 👤 Author
+
+Your Name - [GitHub](https://github.com/yourusername)
+
+---
+
+**Note:** This project was built as a pixel-perfect implementation of the provided Figma design, meeting all specified requirements including Next.js 15.4.8, TypeScript, Tailwind CSS, Shadcn components, and animations.
